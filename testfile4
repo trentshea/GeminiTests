@@ -1,0 +1,1 @@
+setup systemd user to start ssh-agent and add export to bashrc so non-login shell gets variable

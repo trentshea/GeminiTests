@@ -1,5 +1,5 @@
 {
-  "name": "Basic Debian Dev Container",
+  "name": "Official Node Container",
   "build": {
     "dockerfile": "Dockerfile"
   },

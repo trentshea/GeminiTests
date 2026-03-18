@@ -1,32 +1,34 @@
 # Use the official Debian stable image as the base
-FROM debian:13
+FROM node:24
+RUN npm install -g @google/gemini-cli && npm cache clean --force
+USER node
 
-RUN apt-get update \
-     && apt-get install -y \
-         git \
-         sudo \
-         nodejs \
-         npm \
-     && apt-get clean all
+# RUN apt-get update \
+#      && apt-get install -y \
+#          git \
+#          sudo \
+#          nodejs \
+#          npm \
+#      && apt-get clean all
 
-# Example: Installing gemini globally and cleaning cache
-RUN npm install -g @google/gemini-cli \
-    && npm cache clean --force
+# # Example: Installing gemini globally and cleaning cache
+# RUN npm install -g @google/gemini-cli \
+#     && npm cache clean --force
 
-# Define build arguments for the username, UID, and GID
-ARG USERNAME=trentshea
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+# # Define build arguments for the username, UID, and GID
+# ARG USERNAME=trentshea
+# ARG USER_UID=1000
+# ARG USER_GID=$USER_UID
 
-# Create the user and group, add user to the 'sudo' group and set user's default shell
-RUN groupadd --gid $USER_GID $USERNAME && \
-    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
-    usermod -aG sudo $USERNAME && \
-    usermod --shell /bin/bash $USERNAME
+# # Create the user and group, add user to the 'sudo' group and set user's default shell
+# RUN groupadd --gid $USER_GID $USERNAME && \
+#     useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
+#     usermod -aG sudo $USERNAME && \
+#     usermod --shell /bin/bash $USERNAME
 
-# Optional: Configure sudo to not ask for a password for members of the 'sudo' group
-# This is common in Docker environments for automation
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# # Optional: Configure sudo to not ask for a password for members of the 'sudo' group
+# # This is common in Docker environments for automation
+# RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Set the default user to the newly created user
-USER $USERNAME
+# # Set the default user to the newly created user
+# USER $USERNAME

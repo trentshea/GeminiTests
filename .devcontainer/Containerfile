@@ -1,6 +1,6 @@
 # Use the official Debian stable image as the base
 FROM node:24
-RUN npm install -g @google/gemini-cli && npm cache clean --force
+#RUN npm install -g @google/gemini-cli && npm cache clean --force
 USER node
 
 # RUN apt-get update \
